@@ -11,17 +11,9 @@ export default class TagSetAliasCommand extends MinehutCommand {
 			channel: 'guild',
 			description: {
 				content: 'Set a tag alias',
-				usage: '<alias> <target>',
+				usage: '<target> <alias>',
 			},
 			args: [
-				{
-					id: 'alias',
-					type: 'string',
-					prompt: {
-						start: (msg: Message) =>
-							`${msg.author}, what do you want the alias to be?`,
-					},
-				},
 				{
 					id: 'name',
 					type: 'string',
@@ -30,13 +22,21 @@ export default class TagSetAliasCommand extends MinehutCommand {
 							`${msg.author}, which tag do you want this alias to be added to?`,
 					},
 				},
+				{
+					id: 'alias',
+					type: 'string',
+					prompt: {
+						start: (msg: Message) =>
+							`${msg.author}, what do you want the alias to be?`,
+					},
+				},
 			],
 		});
 	}
 
 	async exec(msg: Message, { name, alias }: { name: string; alias: string }) {
-		alias = alias.replace(/\s+/g, '-').toLowerCase();
 		name = name.replace(/\s+/g, '-').toLowerCase();
+		alias = alias.replace(/\s+/g, '-').toLowerCase();
 
 		const existingTarget = await TagModel.findByNameOrAlias(alias);
 
