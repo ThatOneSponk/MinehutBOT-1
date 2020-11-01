@@ -34,7 +34,7 @@ export default class TagSetAliasCommand extends MinehutCommand {
 		});
 	}
 
-	async exec(msg: Message, { alias, name }: { alias: string; name: string }) {
+	async exec(msg: Message, { name, alias }: { alias: string; name: string }) {
 		alias = alias.replace(/\s+/g, '-').toLowerCase();
 		name = name.replace(/\s+/g, '-').toLowerCase();
 
